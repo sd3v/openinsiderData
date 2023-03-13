@@ -7,14 +7,13 @@ This Python script scrapes insider transaction data from openinsider.com and sav
 The script requires the following libraries to be installed:
 - requests
 - beautifulsoup4
-- pandas
 - concurrent.futures
 - logging
 - datetime
 
 You can install these libraries using pip:
 ```bash
-pip install requests beautifulsoup4 pandas concurrent.futures logging datetime
+pip install requests beautifulsoup4 concurrent.futures logging datetime
 ```
 
 ## Usage
