@@ -15,6 +15,10 @@ You can install these libraries using pip:
 ```bash
 pip install requests BeautifulSoup4 concurrent.futures logging datetime
 ```
+or
+```bash
+pip3 install requests BeautifulSoup4 logging datetime
+```
 
 ## Usage
 1. Clone the repository to your local machine.
