@@ -4,7 +4,6 @@ import csv
 from concurrent.futures import ThreadPoolExecutor
 import logging
 from datetime import datetime, timedelta
-from sys import exit
 
 def get_data_for_month(year, month):
     # Create a logger instance with the name "my_logger"
