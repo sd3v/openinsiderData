@@ -13,7 +13,7 @@ The script requires the following libraries to be installed:
 
 You can install these libraries using pip:
 ```bash
-pip install requests beautifulsoup4 concurrent.futures logging datetime
+pip install requests BeautifulSoup4 concurrent.futures logging datetime
 ```
 
 ## Usage
