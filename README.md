@@ -1,6 +1,6 @@
 # OpenInsider Scraper
 
-This Python script scrapes insider transaction data from openinsider.com and saves it to a CSV file named `output_all_dates_monthly.csv`. The script collects data for every month from January 2013 to the current month, using a multi-threaded approach to improve performance.
+This Python script scrapes insider transaction data from openinsider.com and saves it to a CSV file named `output_all_dates_monthly.csv` or `output_all_dates_daily.csv` (if you choose to run the every Day Version) . The script collects data for every month/day from January 2013 to the current month, using a multi-threaded approach to improve performance.
 
 ## Requirements
 
