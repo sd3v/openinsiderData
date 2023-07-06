@@ -1,61 +1,26 @@
 # OpenInsider Scraper
 
-This Python script scrapes insider transaction data from openinsider.com and saves it to a CSV file named `output_all_dates_monthly.csv` or `output_all_dates_daily.csv` (if you choose to run the every Day Version) . The script collects data for every month/day from January 2013 to the current month, using a multi-threaded approach to improve performance.
+If you've always wanted to dive into the riveting world of insider trading data, but were too lazy to manually sift through thousands of pages, then buckle up because you're in for a treat. This is your magic carpet to travel through time, from 2013 to the present, and gather juicy tidbits of insider trading data from the future, well not really, only up to the current month (if it could gather data from the future, I'd probably be on my yacht in the Caribbean by now). 
 
-## Requirements
+## What does this badboy do?
 
-The script requires the following libraries to be installed:
-- requests
-- beautifulsoup4
-- concurrent.futures
-- logging
-- datetime
+The code in this repository makes use of the requests and BeautifulSoup libraries in Python to scrape data from openinsider. The results are neatly tucked away in a CSV file. I also added threading so it's as fast as a leopard.
 
-You can install these libraries using pip:
+The script also comes with a built-in logger that logs events into a file because why not.
+
+## How to Run
+
+Running the script is as easy as a walk in the park... on a sunny day... with your favorite ice cream in your hand. Clone the repository, make sure you have the required libraries installed:
 ```bash
-pip install requests BeautifulSoup4 concurrent.futures logging datetime
+pip install --upgrade pip
+pip install requests BeautifulSoup4 logging datetime
 ```
-or
-```bash
-pip3 install requests BeautifulSoup4 logging datetime
-```
+and then just run the python script. Grab a cup of coffee, and watch it do the work. 
 
-## Usage
-1. Clone the repository to your local machine.
-2. Open the terminal and navigate to the directory where the repository is located.
-3. Run the openinsider_scraper.py script:
-```python
-python openinsider_scraper.py
-```
-4. Wait for the script to finish. The data will be saved in a file named `output_all_dates_monthly.csv`.
+## Disclaimer
 
+While this tool is quite powerful, it comes with no guarantee of making you rich. It will just make you *data* rich, which isn't necessarily the same thing. Also, this tool does not promote insider trading. It's called *insider trading data* scraper, not insider trading-data scraper.
 
-### Detailed Description of the functionality
-The `get_openinsider_data()` function is the main function that orchestrates the entire process of fetching and processing data for all months and years, and saving the output to a CSV file. Here's a breakdown of the steps:
-- A `ThreadPoolExecutor` is created with a maximum of 10 workers. This will allow multiple requests to be sent at the same time, improving the overall speed of the program.
-- An empty list called `all_data` is created to store all the data retrieved for all months and years.
-- The current year and month are retrieved using the `datetime` module.
-- The function iterates through all years and months from 2013 to the current year and month.
-- For the first year (2013), the iteration starts from March, since the data before that is not available.
-- For the current year, the iteration stops at the current month.
-- For each year and month, a `get_data_for_month()` function is called with the year and month as arguments. The `ThreadPoolExecutor` ensures that multiple requests can be sent at the same time.
-- The results of the `get_data_for_month()` function are added to the all_data list using the `extend()` method.
-- After all months and years have been processed, the all_data list is written to a CSV file called `output_all_dates_monthly.csv`
-- The column names for the CSV file are defined in the `field_names` variable.
-- A CSV writer object is created using the `csv.writer()` method, and the column names are written to the first line of the CSV file using the `writerow()` method.
-- The values of each transaction are written to the CSV file using the `writerow()` method.
-- The `get_openinsider_data()` function is called, which starts the entire process.
-- A message is printed to the console when the process is complete.
+## Last words
 
-
-
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
+Enjoy the script and may the odds be ever in your favor!
