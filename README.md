@@ -20,7 +20,10 @@ docker buildx build -t openinsider ./
 
 ```bash
 mkdir date
-docker run -e OUTPUT_DIR="data" -v "${PWD}/data":data -it openinsider
+docker run \
+-v "${PWD}/data":data \
+-e OUTPUT_DIR="data" \
+-it openinsider
 ```
 
 You can also build the daily image and tell it when to start scraping:
@@ -30,7 +33,11 @@ docker buildx build -t openinsider-daily -f Dockerfile.daily
 
 ```bash
 mkdir data
-docker run -e OUTPUT_DIR="data" -e START_DATE="2024-03-01" -it openinsider-daily
+docker run \
+-v "${PWD}/data":data \
+-e OUTPUT_DIR="data" \
+-e START_DATE="2024-03-01" \
+-it openinsider-daily
 ```
 
 ### Bare python
