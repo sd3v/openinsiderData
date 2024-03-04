@@ -27,8 +27,14 @@ def get_data_for_date(date):
     # Parse the HTML response
     soup = BeautifulSoup(response.text, 'html.parser')
 
+    tinytable = soup.find('table', {'class': 'tinytable'})
+
+    if tinytable is None
+        print(f"No data for {date_string}")
+    return data
+
     # Find all the rows in the table on the website
-    rows = soup.find('table', {'class': 'tinytable'}).find('tbody').findAll('tr', recursive=False)
+    rows = tinytable.find('tbody').findAll('tr', recursive=False)
 
     # Loop through each row and extract the insider transaction data
     for row in rows:
@@ -53,6 +59,7 @@ def get_openinsider_data():
             futures = [executor.submit(get_data_for_date, date)]
             for future in futures:
                 all_data.extend(future.result())
+            print(f"finished retrieving {date}")
 
         # set field names for CSV file
         field_names = ['transaction_date','trade_date', 'ticker', 'company_name', 'owner_name', 'Title' ,'transaction_type', 'last_price', 'Qty', 'shares_held', 'Owned', 'Value']
