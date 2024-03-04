@@ -19,3 +19,4 @@ VOLUME /data
 
 # Run the script as the entrypoint
 CMD ["python3", "/openinsider_scraper.py"]
+
