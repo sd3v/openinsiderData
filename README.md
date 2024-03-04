@@ -10,6 +10,21 @@ The script also comes with a built-in logger that logs events into a file becaus
 
 ## How to Run
 
+### Docker
+
+Simply build the image and run:
+
+```bash
+docker buildx build -t openinsider_scraper ./
+```
+
+```bash
+mkdir date
+docker run -e OUTPUT_DIR="data" -v "${PWD}/data":data -it openinsider_scraper
+```
+
+### Bare python
+
 Running the script is as easy as a walk in the park... on a sunny day... with your favorite ice cream in your hand. Clone the repository, make sure you have the required libraries installed:
 ```bash
 pip install --upgrade pip
