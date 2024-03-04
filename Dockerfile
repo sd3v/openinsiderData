@@ -15,7 +15,7 @@ RUN pip3 install --upgrade --no-cache \
 COPY openinsider_scraper.py /openinsider_scraper.py
 
 # expose volume /data
-VOLUME /data
+VOLUME /
 
 # Run the script as the entrypoint
 CMD ["python3", "/openinsider_scraper.py"]
