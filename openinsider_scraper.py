@@ -3,11 +3,14 @@ from bs4 import BeautifulSoup
 import csv
 from concurrent.futures import ThreadPoolExecutor
 import logging
+import os
 from datetime import datetime, timedelta
 
 logger = logging.getLogger("my_logger")
 logger.setLevel(logging.WARNING)
 logger.addHandler(logging.FileHandler("logs.txt"))
+
+OUTPUT_DIR = os.environ.get('OUTPUT_DIR', 'data')
 
 def get_data_for_month(year, month):
     start_date = datetime(year, month, 1).strftime('%m/%d/%Y')
@@ -53,7 +56,10 @@ def get_openinsider_data():
 
         field_names = ['transaction_date','trade_date', 'ticker', 'company_name', 'owner_name', 'Title' ,'transaction_type', 'last_price', 'Qty', 'shares_held', 'Owned', 'Value']
 
-        with open('output_all_dates_monthly.csv', 'w', newline='') as f:
+        # join filename with output directory
+        output_file = os.path.join(OUTPUT_DIR, 'output_all_dates_monthly.csv')
+
+        with open(output_file, 'w', newline='') as f:
             print("writing")
             csv.writer(f).writerow(field_names)
             for transaction in all_data:
