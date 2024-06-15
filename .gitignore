@@ -1,0 +1,7 @@
+.idea/*
+Lib/*
+Scripts/*
+data/*
+deactivate/*
+logs.txt
+pyvenv.cfg
