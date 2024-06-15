@@ -42,7 +42,7 @@ docker run \
 
 ### Bare python
 
-Running the script is as easy as a walk in the park... on a sunny day... with your favorite ice cream in your hand. Clone the repository, make sure you have the required libraries installed:
+Running the script is as easy as a walk in the park... on a sunny day... with your favorite ice cream in your hand. Clone the repository, make sure you have created the output directory and have the required libraries installed:
 ```bash
 mkdir data
 pip install --upgrade pip
