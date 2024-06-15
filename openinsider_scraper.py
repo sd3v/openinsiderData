@@ -37,9 +37,9 @@ def get_data_for_month(year, month):
         if not cols:
             continue
         insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index].text.strip()
-                        for index, key in enumerate(['X', 'Filing Date', 'Trade Date', 'Ticker', 'Company Name',
-                                                     'Insider Name', 'Title', 'Trade Type', 'Price', 'Qty', 'Owned',
-                                                     'DeltaOwn', 'Value', '1d', '1w', '1m', '6m'])}
+                        for index, key in enumerate(['X', 'filing_date', 'trade_date', 'ticker', 'company_name',
+                                                     'insider_name', 'title', 'trade_type', 'price', 'qty', 'owned',
+                                                     'delta_own', 'value', '1d', '1w', '1m', '6m'])}
         data.add(tuple(insider_data.values()))
     return data
 
@@ -58,8 +58,8 @@ def get_openinsider_data():
                     all_data.extend(future.result())
                 print(f"Done with {month}-{year}")
 
-        field_names = ['X', 'Filing Date', 'Trade Date', 'Ticker', 'Company Name', 'Insider Name', 'Title',
-                       'Trade Type', 'Price', 'Qty', 'Owned', 'DeltaOwn', 'Value', '1d', '1w', '1m', '6m']
+        field_names = ['X', 'filing_date', 'trade_date', 'ticker', 'company_name','insider_name', 'title',
+                       'trade_type', 'price', 'qty', 'owned','delta_own', 'value', '1d', '1w', '1m', '6m']
 
         # join filename with output directory
         output_file = os.path.join(OUTPUT_DIR, 'output_all_dates_monthly.csv')
