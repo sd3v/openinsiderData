@@ -12,13 +12,16 @@ logger.addHandler(logging.FileHandler("logs.txt"))
 
 OUTPUT_DIR = os.environ.get('OUTPUT_DIR', 'data')
 
+
 def get_data_for_month(year, month):
     start_date = datetime(year, month, 1).strftime('%m/%d/%Y')
     end_date = (datetime(year, month, 1) + timedelta(days=32)).replace(day=1) - timedelta(days=1)
     end_date = end_date.strftime('%m/%d/%Y')
     print(f"processing month: {month}-{year}")
     data = set()
-    url = f'http://openinsider.com/screener?s=&o=&pl=&ph=&ll=&lh=&fd=-1&fdr={start_date}+-+{end_date}&td=0&tdr=&fdlyl=&fdlyh=&daysago=&xp=1&xs=1&vl=&vh=&ocl=&och=&sic1=-1&sicl=100&sich=9999&grp=0&nfl=&nfh=&nil=&nih=&nol=&noh=&v2l=&v2h=&oc2l=&oc2h=&sortcol=0&cnt=5000&page=1'
+    url = (f'http://openinsider.com/screener?s=&o=&pl=&ph=&ll=&lh=&fd=-1&fdr={start_date}+-+'
+           f'{end_date}&td=0&tdr=&fdlyl=&fdlyh=&daysago=&xp=1&xs=1&vl=&vh=&ocl=&och=&sic1=-1&sicl=100&sich=9999&grp=0'
+           f'&nfl=&nfh=&nil=&nih=&nol=&noh=&v2l=&v2h=&oc2l=&oc2h=&sortcol=0&cnt=5000&page=1')
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
@@ -33,12 +36,13 @@ def get_data_for_month(year, month):
         cols = row.findAll('td')
         if not cols:
             continue
-        insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index].text.strip() 
-                        for index, key in enumerate(['transaction_date', 'trade_date', 'ticker', 'company_name', 
-                                                     'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
-                                                     'shares_held', 'Owned', 'Value'])}
+        insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index].text.strip()
+                        for index, key in enumerate(['X', 'Filing Date', 'Trade Date', 'Ticker', 'Company Name',
+                                                     'Insider Name', 'Title', 'Trade Type', 'Price', 'Qty', 'Owned',
+                                                     'DeltaOwn', 'Value', '1d', '1w', '1m', '6m'])}
         data.add(tuple(insider_data.values()))
     return data
+
 
 def get_openinsider_data():
     with ThreadPoolExecutor(max_workers=10) as executor:
@@ -54,7 +58,8 @@ def get_openinsider_data():
                     all_data.extend(future.result())
                 print(f"Done with {month}-{year}")
 
-        field_names = ['transaction_date','trade_date', 'ticker', 'company_name', 'owner_name', 'Title' ,'transaction_type', 'last_price', 'Qty', 'shares_held', 'Owned', 'Value']
+        field_names = ['X', 'Filing Date', 'Trade Date', 'Ticker', 'Company Name', 'Insider Name', 'Title',
+                       'Trade Type', 'Price', 'Qty', 'Owned', 'DeltaOwn', 'Value', '1d', '1w', '1m', '6m']
 
         # join filename with output directory
         output_file = os.path.join(OUTPUT_DIR, 'output_all_dates_monthly.csv')
@@ -64,6 +69,7 @@ def get_openinsider_data():
             csv.writer(f).writerow(field_names)
             for transaction in all_data:
                 csv.writer(f).writerow(transaction)
+
 
 # Execute the function
 get_openinsider_data()
