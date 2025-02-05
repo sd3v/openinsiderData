@@ -1,22 +1,34 @@
-FROM python:3-alpine 
+FROM python:3.11-slim
 
-# Install required packages
-RUN apk add --update --no-cache \
-    bash \
-    python3 \
-    && ln -sf python3 /usr/bin/python
+WORKDIR /app
 
-RUN pip3 install --upgrade --no-cache \
-    pip \
-    BeautifulSoup4 \
-    requests \
-    datetime
+# System-Abhängigkeiten installieren
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    gcc \
+    python3-dev && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY openinsider_scraper.py /openinsider_scraper.py
+# Python-Abhängigkeiten installieren
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# expose volume /data
-VOLUME /data
+# Konfiguration und Code kopieren
+COPY config.yaml .
+COPY openinsider_scraper.py .
 
-# Run the script as the entrypoint
-CMD ["python3", "/openinsider_scraper.py"]
+# Verzeichnisse erstellen
+RUN mkdir -p data .cache
 
+# Nicht-Root-Benutzer erstellen
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Volumes definieren
+VOLUME ["/app/data", "/app/.cache"]
+
+# Healthcheck hinzufügen
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import os; exit(0 if os.path.exists('data') and os.access('data', os.W_OK) else 1)"
+
+CMD ["python", "openinsider_scraper.py"]
