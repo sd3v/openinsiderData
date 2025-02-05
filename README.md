@@ -1,8 +1,12 @@
-# OpenInsider Data Scraper
+# 📈 OpenInsider Data Scraper
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![Code Style](https://img.shields.io/badge/code%20style-black-black.svg)](https://github.com/psf/black)
 
 A robust Python scraper for collecting insider trading data from openinsider.com.
 
-## Features
+## ✨ Features
 
 - Multi-threaded data collection for high performance
 - Intelligent caching system to minimize server load
@@ -13,7 +17,7 @@ A robust Python scraper for collecting insider trading data from openinsider.com
 - Progress tracking with progress bar
 - Docker support for easy deployment
 
-## Installation
+## 🚀 Installation
 
 1. Clone the repository:
 ```bash
@@ -34,11 +38,11 @@ venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
-## Configuration
+## ⚙️ Configuration
 
 All settings are managed through `config.yaml`:
 
-### Output Settings
+### 📁 Output Settings
 ```yaml
 output:
   directory: data       # Output directory for scraped data
@@ -46,7 +50,7 @@ output:
   format: csv          # Output format (csv or parquet)
 ```
 
-### Scraping Settings
+### 🔄 Scraping Settings
 ```yaml
 scraping:
   start_year: 2024           # Start year
@@ -56,7 +60,7 @@ scraping:
   timeout: 30               # Request timeout in seconds
 ```
 
-### Filter Settings
+### 🔎 Filter Settings
 ```yaml
 filters:
   min_transaction_value: 50000  # Minimum transaction value in USD
@@ -68,7 +72,7 @@ filters:
   min_shares_traded: 100        # Minimum number of shares
 ```
 
-### Logging Settings
+### 📝 Logging Settings
 ```yaml
 logging:
   level: INFO          # Logging level (DEBUG, INFO, WARNING, ERROR)
@@ -77,7 +81,7 @@ logging:
   max_log_size: 10     # Max log size in MB
 ```
 
-### Cache Settings
+### 💾 Cache Settings
 ```yaml
 cache:
   enabled: true        # Enable caching
@@ -85,14 +89,14 @@ cache:
   max_age: 24         # Cache max age in hours
 ```
 
-## Usage
+## 🔧 Usage
 
 Run the scraper:
 ```bash
 python openinsider_scraper.py
 ```
 
-## Docker Support
+## 🐳 Docker Support
 
 Build the container:
 ```bash
@@ -104,7 +108,7 @@ Run the container:
 docker run -v $(pwd)/data:/app/data openinsider-scraper
 ```
 
-## Transaction Types
+## 💼 Transaction Types
 
 Available transaction types:
 - P - Purchase
@@ -119,7 +123,7 @@ Available transaction types:
 - H - Holdings
 - O - Other
 
-## Contributing
+## 👥 Contributing
 
 1. Fork the repository
 2. Create your feature branch
@@ -127,12 +131,12 @@ Available transaction types:
 4. Push to the branch
 5. Create a Pull Request
 
-## Troubleshooting
+## 🔍 Troubleshooting
 
 - If you encounter rate limiting, adjust the `max_workers` setting
 - For memory issues, try using Parquet format for large datasets
 - Check the log file for detailed error messages
 
-## Disclaimer
+## ⚠️ Disclaimer
 
 This tool is for educational purposes only. Ensure you comply with the website's terms of service and local regulations when scraping data.
