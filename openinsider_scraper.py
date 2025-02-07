@@ -27,6 +27,7 @@ class ScraperConfig:
     min_transaction_value: float
     transaction_types: List[str]
     exclude_companies: List[str]
+    include_companies: List[str]
     min_shares_traded: int
     log_level: str
     log_file: str
@@ -58,6 +59,7 @@ class OpenInsiderScraper:
             min_transaction_value=config['filters']['min_transaction_value'],
             transaction_types=config['filters']['transaction_types'],
             exclude_companies=config['filters']['exclude_companies'],
+            include_companies=config['filters']['include_companies'],
             min_shares_traded=config['filters']['min_shares_traded'],
             log_level=config['logging']['level'],
             log_file=config['logging']['file'],
@@ -138,7 +140,7 @@ class OpenInsiderScraper:
                 if not cols:
                     continue
                     
-                insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index].text.strip() 
+                insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index+1].text.strip() 
                                 for index, key in enumerate(['transaction_date', 'trade_date', 'ticker', 'company_name', 
                                                          'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
                                                          'shares_held', 'Owned', 'Value'])}
@@ -183,6 +185,10 @@ class OpenInsiderScraper:
             if data['ticker'] in self.config.exclude_companies:
                 return False
 
+            # Check included companies
+            if self.config.include_companies and data['ticker'] not in self.config.include_companies:
+                return False
+
             # Convert and check value
             value = self._clean_numeric(data['Value'])
             if value < self.config.min_transaction_value:
@@ -192,7 +198,7 @@ class OpenInsiderScraper:
             shares = self._clean_numeric(data['Qty'])
             if shares < self.config.min_shares_traded:
                 return False
-                
+            
             return True
         except (ValueError, KeyError) as e:
             self.logger.warning(f"Error filtering data: {str(e)}")
