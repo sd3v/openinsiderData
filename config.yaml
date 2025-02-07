@@ -17,7 +17,7 @@ filters:
   min_transaction_value: 0     # Minimaler Transaktionswert in USD
   transaction_types: []        # Leer = alle Typen, oder Liste: ["P", "S", "A", etc.]
   exclude_companies: []        # Liste von Ticker-Symbolen die ausgeschlossen werden sollen
-  include_companies: ["AAPL"]        # Liste von Ticker-Symbolen die ausgeschlossen werden sollen
+  include_companies: []        # Liste von Ticker-Symbolen die ausgeschlossen werden sollen
   min_shares_traded: 0        # Minimale Anzahl gehandelter Aktien
 
 # Logging-Einstellungen
