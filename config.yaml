@@ -1,34 +1,34 @@
-# Grundeinstellungen
+# Basic Settings
 output:
   directory: "data"
   filename: "insider_trades.csv"
-  format: "csv"  # Mögliche Werte: csv, parquet
+  format: "csv"  # Possible values: csv, parquet
 
-# Scraping-Einstellungen
+# Scraping Settings
 scraping:
-  start_year: 2025  # Ab welchem Jahr sollen Daten geholt werden
-  start_month: 1    # Ab welchem Monat im start_year
-  max_workers: 10   # Anzahl paralleler Downloads
-  retry_attempts: 3 # Anzahl Wiederholungsversuche bei Fehlern
-  timeout: 30       # Timeout in Sekunden für HTTP-Requests
+  start_year: 2025  # From which year should data be retrieved
+  start_month: 1    # From which month in start_year
+  max_workers: 10   # Number of parallel downloads
+  retry_attempts: 3 # Number of retry attempts on errors
+  timeout: 30       # Timeout in seconds for HTTP requests
 
-# Filter-Einstellungen
+# Filter Settings
 filters:
-  min_transaction_value: 0     # Minimaler Transaktionswert in USD
-  transaction_types: []        # Leer = alle Typen, oder Liste: ["P", "S", "A", etc.]
-  exclude_companies: []        # Liste von Ticker-Symbolen die ausgeschlossen werden sollen
-  include_companies: []        # Liste von Ticker-Symbolen die ausgeschlossen werden sollen
-  min_shares_traded: 0        # Minimale Anzahl gehandelter Aktien
+  min_transaction_value: 0     # Minimum transaction value in USD
+  transaction_types: []        # Empty = all types, or list: ["P", "S", "A", etc.]
+  exclude_companies: []        # List of ticker symbols to exclude
+  include_companies: []        # List of ticker symbols to include
+  min_shares_traded: 0        # Minimum number of traded shares
 
-# Logging-Einstellungen
+# Logging Settings
 logging:
   level: "INFO"               # DEBUG, INFO, WARNING, ERROR
   file: "openinsider.log"
-  rotate_logs: true          # Alte Logs archivieren
-  max_log_size: 10           # Maximale Log-Größe in MB
+  rotate_logs: true          # Archive old logs
+  max_log_size: 10           # Maximum log size in MB
 
-# Cache-Einstellungen
+# Cache Settings
 cache:
-  enabled: true              # Cache aktivieren/deaktivieren
-  directory: ".cache"        # Cache-Verzeichnis
-  max_age: 24               # Maximales Alter der Cache-Dateien in Stunden
+  enabled: true              # Enable/disable cache
+  directory: ".cache"        # Cache directory
+  max_age: 24               # Maximum age of cache files in hours

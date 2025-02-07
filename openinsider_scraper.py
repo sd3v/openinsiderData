@@ -145,11 +145,11 @@ class OpenInsiderScraper:
                                                          'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
                                                          'shares_held', 'Owned', 'Value'])}
                 
-                # Anwenden der Filter
+                # Apply filters
                 if self._apply_filters(insider_data):
                     data.add(tuple(insider_data.values()))
             
-            # Cache speichern
+            # Save cache
             if self.config.cache_enabled:
                 with open(cache_path, 'w') as f:
                     json.dump([list(x) for x in data], f)
