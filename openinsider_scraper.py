@@ -137,13 +137,14 @@ class OpenInsiderScraper:
             
             for row in rows:
                 cols = row.findAll('td')
+                del cols[0]  # Remove the 'D' indicator column
                 if not cols:
                     continue
                     
-                insider_data = {key: cols[index].find('a').text.strip() if cols[index].find('a') else cols[index+1].text.strip() 
-                                for index, key in enumerate(['transaction_date', 'trade_date', 'ticker', 'company_name', 
-                                                         'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
-                                                         'shares_held', 'Owned', 'Value'])}
+                keys = ['transaction_date', 'trade_date', 'ticker', 'company_name', 
+                        'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
+                        'shares_held', 'Owned', 'Value']
+                insider_data = {key: cols[i].get_text(strip=True) for i, key in enumerate(keys)}
                 
                 # Apply filters
                 if self._apply_filters(insider_data):
@@ -257,5 +258,5 @@ if __name__ == '__main__':
         scraper = OpenInsiderScraper()
         scraper.scrape()
     except Exception as e:
-        logging.error(f"Kritischer Fehler: {str(e)}")
+        logging.error(f"Critical error: {str(e)}")
         raise
