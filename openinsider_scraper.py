@@ -132,11 +132,11 @@ class OpenInsiderScraper:
                 self.logger.error(f"No table found for {month}-{year}")
                 return set()
                 
-            rows = table.find('tbody').findAll('tr')
+            rows = table.find('tbody').find_all('tr')
             data = set()
             
             for row in rows:
-                cols = row.findAll('td')
+                cols = row.find_all('td')
                 del cols[0]  # Remove the 'D' indicator column
                 if not cols:
                     continue
@@ -145,6 +145,10 @@ class OpenInsiderScraper:
                         'owner_name', 'Title', 'transaction_type', 'last_price', 'Qty', 
                         'shares_held', 'Owned', 'Value']
                 insider_data = {key: cols[i].get_text(strip=True) for i, key in enumerate(keys)}
+                
+                # Normalize transaction_type to just the code (e.g., "P - Purchase" -> "P")
+                if 'transaction_type' in insider_data and insider_data['transaction_type']:
+                    insider_data['transaction_type'] = insider_data['transaction_type'].split(' - ')[0].strip()
                 
                 # Apply filters
                 if self._apply_filters(insider_data):
